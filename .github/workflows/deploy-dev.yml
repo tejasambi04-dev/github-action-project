@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: set build number
-        run: echo "BUILD_NUMBER=${{ github.run_number }}" >> "$BUILD_NUMBER"
+        run: echo "BUILD_NUMBER=${{ github.run_number }}" >> "$GITHUB_ENV
       - name: build docker image 
         run: docker build -t myapp:${BUILD_NUMBER} .
       - name: Show docker images
