@@ -35,3 +35,4 @@ jobs:
 
   security:
     uses: ./.github/workflows/security.yml
+    secrets: inherit
