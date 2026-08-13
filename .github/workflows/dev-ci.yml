@@ -33,6 +33,13 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Show repository IDs
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          cho "Owner ID: ${{ github.repository_owner_id }}"
+          echo "Repository ID: ${{ github.repository_id }}"
+          echo "Branch: ${{ github.ref }}"
+
   security:
     uses: ./.github/workflows/security.yml
     secrets: inherit
