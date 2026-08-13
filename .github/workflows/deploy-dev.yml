@@ -54,6 +54,6 @@ jobs:
       - name: Deploy application
         run: |
           cd ./k8s/dev/
-          kubectl apply -f deployment.yaml
+          kubectl apply -f deploynment.yaml
           kubectl apply -f service.yaml
           kubectl apply -f ingress.yaml
