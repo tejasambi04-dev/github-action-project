@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: default
+  annotations:
+    # Optional: Tells NGINX to rewrite target paths if needed
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx   # Connects this configuration to the NGINX Ingress Controller
+  rules:
+  - host: :www.tejastest.shop    # Your external domain name
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ecommerce-app-service   # The exact name of your backend service
+            port:
+              number: 80       # The target port of your backend service
