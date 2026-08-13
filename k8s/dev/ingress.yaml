@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx   # Connects this configuration to the NGINX Ingress Controller
   rules:
-  - host: :www.tejastest.shop    # Your external domain name
+  - host: www.tejastest.shop    # Your external domain name
     http:
       paths:
       - path: /
