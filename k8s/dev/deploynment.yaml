@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-deployment
+  labels:
+    app: ecommerce
+spec:
+  replicas: 4
+  # Define the rollout strategy here
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1       # How many instances can be created above the desired replica count
+      maxUnavailable: 0 # How many instances can be unavailable during the update process
+  selector:
+    matchLabels:
+      app: ecommerce
+  template:
+    metadata:
+      labels:
+        app: ecommerce
+    spec:
+      imagePullSecrets:
+        - name: ecr-secret
+      containers:
+      - name: ecommerce-container
+        image: 833333701417.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-app:7
+        ports:
+        - containerPort: 8000
+        # Recommended: Helps Kubernetes know when the new pod is ready to accept traffic
