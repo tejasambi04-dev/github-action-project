@@ -57,3 +57,10 @@ jobs:
           kubectl apply -f deploynment.yaml
           kubectl apply -f service.yaml
           kubectl apply -f ingress.yaml
+      - name: Update application image
+        run: |
+          kubectl set image deployment/ecommerce-deployment \
+          ecommerce-deployment=${{ steps.login-ecr.outputs.registry }}/ecommerce:${{ github.run_number }}
+
+      - name: Verify rollout
+        run: kubectl rollout status deployment/ecommerce-deployment --timeout=5m
