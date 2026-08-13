@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   deploy-dev:
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -40,3 +41,19 @@ jobs:
 
       - name: Push image to ECR
         run: docker push ${{ steps.login-ecr.outputs.registry }}/ecommerce-app:${{ github.run_number }}
+
+      - name: configure kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          chmod 600 ~/.kube/config
+
+      - name: verify cluster
+        run: kubectl get nodes
+
+      - name: Deploy application
+        run: |
+          cd ./k8s/dev/
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
+          kubectl apply -f ingress.yaml
